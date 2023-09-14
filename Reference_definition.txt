@@ -1,0 +1,12 @@
+Point Cloud Representation:
+
+Data Type: Point clouds are a collection of individual points in 3D space. Each point typically has attributes like position, color, and possibly additional information.
+Purpose: Point clouds are often used to represent 3D data obtained from various sources, such as 3D scans from LiDAR, structured light, or photogrammetry. They are used for tasks like 3D reconstruction, 3D modeling, and point cloud registration.
+Usage: Point cloud data can be processed and visualized directly as a set of discrete points in 3D space. Common operations include filtering, downsampling, and registration.
+
+Marching Cubes:
+
+Data Type: Marching Cubes is an algorithm used for extracting a polygonal mesh (a surface) from a 3D scalar field. This scalar field is often represented as a 3D grid (voxels), where each voxel contains a scalar value, such as a density or intensity.
+Purpose: The main purpose of Marching Cubes is to create a 3D surface representation from volumetric data, such as medical imaging data (MRI, CT scans) or scientific simulations.
+Usage: Marching Cubes algorithm examines the scalar values of the grid cells and generates triangles to represent the surface of the object within the scalar field. This mesh can then be rendered or used for further analysis.
+# Generate surface mesh using marching cubes algorithm
