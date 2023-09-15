@@ -12,3 +12,4 @@ Usage: Marching Cubes algorithm examines the scalar values of the grid cells and
 # Generate surface mesh using marching cubes algorithm
 
 https://forum.image.sc/t/marching-cubes-element-size/35656/5
+https://forum.image.sc/t/marching-cubes-triangle-verticies-faces-coordinates-too-large/51148
