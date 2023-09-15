@@ -10,3 +10,5 @@ Data Type: Marching Cubes is an algorithm used for extracting a polygonal mesh (
 Purpose: The main purpose of Marching Cubes is to create a 3D surface representation from volumetric data, such as medical imaging data (MRI, CT scans) or scientific simulations.
 Usage: Marching Cubes algorithm examines the scalar values of the grid cells and generates triangles to represent the surface of the object within the scalar field. This mesh can then be rendered or used for further analysis.
 # Generate surface mesh using marching cubes algorithm
+
+https://forum.image.sc/t/marching-cubes-element-size/35656/5
