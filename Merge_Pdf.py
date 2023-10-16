@@ -1,19 +1,23 @@
 from PyPDF2 import PdfMerger
 import os
 
+
 #Create an instance of PdfFileMerger() class
 merger = PdfMerger()
 
 #Define the path to the folder with the PDF files
-path_to_files = r'C:/Users/kaabi/Downloads/Degree_Adum/National_Document/'
+path_to_files = r'C:/Users/kaabi/Downloads/Rent Slips Vitry/'
+
+folder_name = os.path.split(path_to_files.rstrip('/'))[-1]
 
 #Get the file names in the directory
 for file_name in os.listdir(path_to_files):
+
     if file_name.endswith(".pdf"):
         merger.append(path_to_files + file_name)
-
+        
 #Write out the merged PDF file
-merger.write(path_to_files + "/Combined_National_Document.pdf")
+merger.write(path_to_files + "/" + folder_name + ".pdf")
 merger.close()
 
 # -*- coding: utf-8 -*-
