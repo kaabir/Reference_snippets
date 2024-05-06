@@ -1,17 +1,26 @@
 import pandas as pd
+import numpy as np
 
-# Create pandas dataframe
 data = {
-    'Ctrl': [203.99099731445394, 230.24800109863357, 152.43099975585972, 213.2480010986339, 144.44200134277338, 124.58699798584667, 184.19599914550832, 167.19700622558626, 139.43699645996166, 212.1029968261727, 87.10639953613283, 152.434005737305, 176.621994018555, 104.109001159668],
-    '15min': [247.021484375, 280.5150146484375, 182.70399169921875, 263.5150146484375, 194.70799560546875, 174.85999755859375, 234.468994140625, 217.4699951171875, 189.70799560546875, 262.3759997558594, 137.37899780273437, 202.70799560546875, 226.8949951171875, 154.38099365234375]
+    'Ctrl': [61.0041999816895 ,64.0334014892578 ,87.7265014648438 ,58.2648010253906 ,59.9216003417969 ,72.1035995483399 ,66.1695022583008 ,61.0844993591309 ,87.4268035888672 ,57.7593994140625],
+    '15min': [153.669998168945 ,125.580001831055 ,136.888000488281 ,106.981002807617 ,90.092903137207]
 }
+# Find maximum length
+max_length = max(len(v) for v in data.values())
+
+# Fill NaN for missing values in each list
+for key in data.keys():
+    data[key] += [np.nan] * (max_length - len(data[key]))
 
 df = pd.DataFrame(data)
 
-# Calculate mean of the control group
+# Divide each value in '15min' column by its corresponding value in 'Ctrl' column
 ctrl_mean = df['Ctrl'].mean()
 
-# Normalize each value by the mean of the control group
-normalized_df = df.divide(ctrl_mean)
+# Normalize the control column so that its mean is 1
+df['Ctrl'] = df['Ctrl'] / ctrl_mean
 
-print(normalized_df)
+# Divide each value in the other column by its corresponding control mean
+df['15min'] = df['15min'] / ctrl_mean
+
+print(df)
