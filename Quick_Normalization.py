@@ -2,8 +2,46 @@ import pandas as pd
 import numpy as np
 
 def normalize_multiple_dataframes(*dataframes, names):
+    '''
+        Takes Nth dataframes as input and returns the normalized versions for Nth number of columns.
+        This divides from the mean of Control assumed to placed at the first column
+        Parameters
+        ----------
+        Returns
+        -------
+        Dataframe
+    '''
+    def get_numeric_columns(df):
+        return df.select_dtypes(include=[np.number]).columns
+
+    # Assume the first dataframe is the control
+    control_df = dataframes[0]
+    numeric_columns = get_numeric_columns(control_df)
+
+    # Calculate means for each numeric column in the control dataframe
+    control_means = control_df[numeric_columns].mean()
+
+    normalized_dataframes = {}
+
+    for df, name in zip(dataframes, names):
+        df_normalized = pd.DataFrame(index=df.index)
+        for column in numeric_columns:
+            if column in df.columns:
+                mean_intensity = control_means[column]
+                if mean_intensity != 0:  # Avoid division by zero
+                    df_normalized[f'{column}_Normalized'] = df[column] / mean_intensity
+                else:
+                    df_normalized[f'{column}_Normalized'] = df[column]  # exception to handle
+        
+        # Combine original and normalized dataframes
+        df_final = pd.concat([df, df_normalized], axis=1)
+        normalized_dataframes[name] = df_final
+
+    return normalized_dataframes
+        
+def normalize_multiple_dataframes(*dataframes, names):
         '''
-    Takes Nth dataframes as input and returns the normalized versions for Nth number of columns.
+    Takes Nth dataframes as input and returns the normalized versions for Nth number of columns independant of any column
     Parameters
     ----------
     ctrlData : Dataframe
