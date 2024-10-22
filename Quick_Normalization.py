@@ -1,6 +1,58 @@
 import pandas as pd
 import numpy as np
 
+def normalize_multiple_dataframes(*dataframes, names):
+        '''
+    Takes Nth dataframes as input and returns the normalized versions for Nth number of columns.
+    Parameters
+    ----------
+    ctrlData : Dataframe
+        DESCRIPTION.
+    testData : Dataframe
+        DESCRIPTION.
+
+    Returns
+    -------
+    Dataframe
+    '''
+    def get_numeric_columns(df):
+        return df.select_dtypes(include=[np.number]).columns
+
+    # Get all unique numeric columns across all dataframes
+    all_numeric_columns = set()
+    for df in dataframes:
+        all_numeric_columns.update(get_numeric_columns(df))
+
+    # Calculate means for each numeric column across all dataframes
+    all_means = pd.Series(dtype=float)
+    for column in all_numeric_columns:
+        column_data = [df[column] for df in dataframes if column in df.columns]
+        if column_data:
+            all_means[column] = pd.concat(column_data).mean()
+
+    normalized_dataframes = {}
+
+    for df, name in zip(dataframes, names):
+        df_normalized = pd.DataFrame(index=df.index)
+        for column in all_numeric_columns:
+            if column in df.columns and column in all_means.index:
+                mean = all_means[column]
+                df_normalized[f'{column}_Normalized'] = df[column] / mean
+        
+        # Combine original and normalized dataframes
+        df_final = pd.concat([df, df_normalized], axis=1)
+        normalized_dataframes[name] = df_final
+
+    return normalized_dataframes
+
+# Usage 
+normalized_dfs = normalize_multiple_dataframes(Ctrl, test1, 
+                                               test2, test3,
+                                               test4, 
+                                               names=['Ctrl', 'test1',
+                                                      'test2','test3',
+                                                      'test3',
+                                                      ])
 def normalize_dataframes(ctrlData, testData):
     '''
     Takes two dataframes as input and returns the normalized versions for N number of columns.
@@ -31,8 +83,8 @@ def normalize_dataframes(ctrlData, testData):
     # Normalize each column
     for column in numeric_columns:
         mean_intensity = means_ctrl[column]
-        ctrlData_normalized[f'{column}_Normalized'] = ctrlData[column] / mean_intensity
-        testData_normalized[f'{column}_Normalized'] = testData[column] / mean_intensity
+        ctrlData_normalized[f'{column}_Normalized'] = ctrlData[column] / mean
+        testData_normalized[f'{column}_Normalized'] = testData[column] / mean_
 
     # Combine original and normalized dataframes
     ctrlData_final = pd.concat([ctrlData, ctrlData_normalized], axis=1)
