@@ -1,5 +1,12 @@
 from bioio import BioImage
 import bioio_czi
+from tkinter import filedialog
+from tkinter import Tk
+
+# Suppress root window for file dialog
+Tk().withdraw()
+file = filedialog.askdirectory(title="Select Image Directory")
+# or load directly
 file = "ABCD.czi"
 # img = BioImage("my_file.tiff")  # selects the first scene found
 img = BioImage(file, reader=bioio_czi.Reader)
