@@ -6,7 +6,7 @@ import os
 merger = PdfMerger()
 
 #Define the path to the folder with the PDF files
-path_to_files = r'C:/Users/kaabi/Downloads/Rent Slips Vitry/'
+path_to_files = r'C:'
 
 folder_name = os.path.split(path_to_files.rstrip('/'))[-1]
 
