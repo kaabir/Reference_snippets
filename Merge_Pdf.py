@@ -20,13 +20,6 @@ for file_name in os.listdir(path_to_files):
 merger.write(path_to_files + "/" + folder_name + ".pdf")
 merger.close()
 
-# -*- coding: utf-8 -*-
-# """
-# Created on Wed Sep  6 14:35:21 2023
-
-# @author: kaabi
-# """
-
 # from PyPDF2 import PdfMerger
 # import os
 
@@ -34,7 +27,7 @@ merger.close()
 # merger = PdfMerger()
 
 # #Define the path to the folder with the PDF files
-# path_to_files = r'C:/Users/ChimieENS/Downloads/Documents_RP/'
+# path_to_files = r'C/'
 
 # #Get the file names in the directory
 # for root, dirs, file_names in os.walk(path_to_files):
@@ -44,5 +37,5 @@ merger.close()
 #         merger.append(path_to_files + file_name)
 
 # #Write out the merged PDF file
-# merger.write("C:/Users/ChimieENS/Downloads/Documents_RP/merged_all_pages.pdf")
+# merger.write("/merged_all_pages.pdf")
 # merger.close()
