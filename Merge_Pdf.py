@@ -1,3 +1,27 @@
+from pathlib import Path
+from pypdf import PdfWriter
+
+folder = Path(r"C:/")   # change this
+output_file = folder / "merged.pdf"
+
+pdf_files = sorted(folder.glob("*.pdf"))
+
+if not pdf_files:
+    raise FileNotFoundError("No PDF files found in the folder.")
+
+writer = PdfWriter()
+
+for pdf in pdf_files:
+    if pdf.name != output_file.name:  # avoid including the output file if rerun
+        writer.append(str(pdf))
+
+with open(output_file, "wb") as f:
+    writer.write(f)
+
+writer.close()
+
+print(f"Merged {len(pdf_files)} PDFs into: {output_file}")
+
 from PyPDF2 import PdfMerger
 import os
 
